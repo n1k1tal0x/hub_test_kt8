@@ -1,0 +1,24 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "Simple Notes REST API used as a learning project for CI/CD pipeline setup",
+  "main": "src/app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --ci --reporters=default --reporters=jest-junit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "supertest": "^7.0.0"
+  },
+  "jest-junit": {
+    "outputDirectory": "test-results",
+    "outputName": "junit.xml"
+  }
+}
