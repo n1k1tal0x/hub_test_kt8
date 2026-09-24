@@ -10,7 +10,17 @@ function createApp() {
   });
 
   app.get("/notes", (req, res) => {
-    res.json(store.getAll());
+    const { search } = req.query;
+    let notes = store.getAll();
+    if (search) {
+      const needle = String(search).toLowerCase();
+      notes = notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(needle) ||
+          note.body.toLowerCase().includes(needle)
+      );
+    }
+    res.json(notes);
   });
 
   app.get("/notes/:id", (req, res) => {

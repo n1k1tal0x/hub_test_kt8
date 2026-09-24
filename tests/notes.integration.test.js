@@ -47,6 +47,16 @@ describe("Notes API — integration tests", () => {
     expect(res.status).toBe(404);
   });
 
+  test("GET /notes?search filters notes by title and body", async () => {
+    await request(app).post("/notes").send({ title: "Groceries", body: "Buy milk" });
+    await request(app).post("/notes").send({ title: "Workout plan", body: "Run 5km" });
+
+    const res = await request(app).get("/notes").query({ search: "milk" });
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(1);
+    expect(res.body[0].title).toBe("Groceries");
+  });
+
   test("full lifecycle: create -> read -> update -> delete", async () => {
     const created = await request(app).post("/notes").send({ title: "Lifecycle" });
     const id = created.body.id;
